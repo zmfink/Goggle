@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+	<center>
+   		<h1>
+   			<span class="rainbow">Goggle</span>
+   		</h1>
+		<form method = "get">
+			<input type="text" name="query">
+			<input type="submit" value="Search">
+			<input id="hiddeninputid" type="hidden" name="w" value= "0.5">
+			</form>
+
+		<br><br>
+
+			<head>
+			<meta charset="utf-8">
+				<title>jQuery UI Slider - Default functionality</title>
+				<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+				<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+				<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+				<script>
+				$(function() {
+					$( "#slider" ).slider({
+						min: 0,
+						max: 1,
+						step: .001,
+						value: .5,
+						stop: function(event, ui) {
+							var value = $("#slider").slider("option", "value");
+							document.getElementById("w").innerHTML = "w = "+value;
+							document.getElementById("hiddeninputid").value = value;
+						}
+					})
+				});
+				</script>
+			</head>
+<body>
+ 
+<div id="slider" value = "0.5"></div><br>
+<div id="w">w = 0.5</div>
+ 
+ 
+</body>
+
+	</center>
+	{% if search %}
+		<h4> {{hits}} hits (0.32 nanoseconds) with w = {{w_val}}</h4>
+		{% for query in queryList %}
+    		<div class ="float">
+    			<p>
+    				<a href="https://en.wikipedia.org/wiki?curid={{query['id']}}">https://en.wikipedia.org/wiki?curid={{query['id']}}</a>
+    				<button id="{{query['id']}}" type="button">Summary</button>
+    				<p2 hidden id="p{{query['id']}}">
+    					<br><img height=75 width=75 src="{{query['picurl']}}">
+    					<br>{{query['category']}}
+    					<br><br>{{query['infobox']}}
+    				</p2>
+			    </p>
+	    	</div>
+		{% endfor %}
+
+		<script>
+			$( "button" ).click(function() {
+				var id = this.id;
+				var element = "p" + id
+				if($("#" + element).is(":visible"))
+					$("#" + element).slideUp();
+				else
+			  		$("#" + element).slideDown();
+			});
+		</script>
+    {% endif %}
+
+{% endblock %}

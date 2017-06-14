@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/static/css/style.css" />
+   <!-- <script type="text/javascript" src="/static/js/qwest.min.js"></script> -->
+
+  {% if title %}
+  <title> {{ title }} - EECS485 </title>
+  {% else %}
+  <title>EECS485</title>
+  {% endif %}
+
+</head>
+<body>
+  <div class="center">
+    {% block content %}
+
+    {% endblock %}
+
+    {% block extrascripts %} <!-- This is where we'll load inline scripts specific for a given template -->
+  
+    {% endblock %}
+  </div>
+
+  
+
+
+</body>
+
+</html>
